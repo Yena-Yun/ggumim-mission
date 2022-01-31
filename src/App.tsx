@@ -1,7 +1,8 @@
 import React from 'react';
+import ProductPost from 'pages/ProductPost';
 
-function App() {
-  return <div className='App'></div>;
-}
+const App = (): JSX.Element => {
+  return <ProductPost />;
+};
 
 export default App;
