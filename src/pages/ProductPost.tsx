@@ -1,21 +1,16 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { RoomImage, Swiper } from 'components';
-import { Grid } from 'common';
-// import getData from 'hooks/getData';
-import axios from 'axios';
 import expandIcon from 'assets/expandIcon.png';
 
 interface ProductList {
-  productId: number;
-  productName: string;
+  discountRate: number;
+  imageUrl: string;
   outside: boolean;
   pointX: number;
   pointY: number;
-  priceOriginal: number;
   priceDiscount: number;
-  discountRate: number;
-  imageUrl: string;
+  priceOriginal: number;
+  productId: any;
+  productName: string;
 }
 
 interface IData {
@@ -24,72 +19,67 @@ interface IData {
   productList: ProductList[];
 }
 
-const ProductPost = () => {
-  const [fetchData, setFetchData] = useState<IData>();
-  const [expandBtn, setExpandBtn] = useState<JSX.Element>();
-  const [pointX, setPointX] = useState<number>(0);
+interface PostProps {
+  image: string | undefined;
+  data: IData | null;
+}
 
-  useEffect(() => {
-    axios.get('https://cdn.ggumim.co.kr/test/image_product_link.json').then((response) => {
-      console.log(response.data);
+interface ImageProps {
+  image: string | undefined;
+}
 
-      setFetchData(response.data);
-
-      setExpandBtn(
-        response.data.productList.map((item: ProductList, idx: number) => {
-          console.log(item);
-          console.log(expandIcon);
-          console.log(item.pointX);
-
-          setPointX(item.pointX);
-
-          return <ExpandBtn src={expandIcon} alt='expand-button' />;
-        })
-      );
-    });
-  }, []);
+const ProductPost = ({ image, data }: PostProps) => {
+  const positionXY = (id: string) => {
+    const elem = document.getElementById(`${id}`);
+    console.log(elem);
+    console.log(elem?.getBoundingClientRect().x);
+    console.log(elem?.getBoundingClientRect().y);
+  };
 
   return (
-    <Grid flex>
-      <Grid width='800px' position='relative'>
-        <MainImage src={fetchData?.imageUrl} alt='room-picture' />
-        <BtnWrap pointX={pointX}>{expandBtn}</BtnWrap>
-      </Grid>
+    <Wrapper>
+      <Background image={image}>
+        {data?.productList.map((el: ProductList) => (
+          <ImgWrapper key={el.productId} pointX={el.pointX} pointY={el.pointY} id={el.productId} onClick={() => positionXY(el.productId)}>
+            <Img src={expandIcon} alt={el.productName} />
+          </ImgWrapper>
+        ))}
+      </Background>
 
-      <Grid width='780px' padding='0 10px'>
-        <Grid flex>
-          <Grid width='106px'>
-            <SwipeImage src='' alt='' />
-          </Grid>
-          <Grid>
-            <SwipeImage src='' alt='' />
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+      <ScrollWrapper>{/* <ImageList data={data} /> */}</ScrollWrapper>
+    </Wrapper>
   );
 };
 
-const MainImage = styled.img`
-  width: 100%;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Background = styled.div<ImageProps>`
+  background-image: url(${(props) => props?.image});
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
   position: relative;
+  width: 800px;
+  height: 998.39px;
 `;
 
-const BtnWrap = styled.div<{ pointX: number }>`
+const ImgWrapper = styled.div<{ pointX: number; pointY: number }>`
   position: absolute;
-  top: ${(props) => props.pointX};
-  left: 0;
+  top: ${(props) => `${props.pointX * 1.6}`}px;
+  left: ${(props) => `${props.pointY * 1.65}`}px;
 `;
 
-const ExpandBtn = styled.img`
+const Img = styled.img`
   width: 32px;
   height: 32px;
 `;
 
-const SwipeImage = styled.img`
-  width: 100%;
-  border: 0.5px solid #aaafb9;
-  border-radius: 16px;
+const ScrollWrapper = styled.div`
+  width: 800px;
+  overflow-x: scroll;
 `;
 
 export default ProductPost;
