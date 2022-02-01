@@ -1,20 +1,5 @@
 import styled from 'styled-components';
 
-type GridProps = {
-  flex: boolean;
-  column: boolean;
-  align: string;
-  justify: string;
-  width: string;
-  padding: string;
-  margin: string;
-  relative: boolean;
-  absolute: boolean;
-  top: string;
-  left: string;
-  children: JSX.Element | JSX.Element[] | boolean | Element;
-};
-
 interface GridStyle {
   flex: boolean;
   column: boolean;
@@ -23,14 +8,19 @@ interface GridStyle {
   width: string;
   padding: string;
   margin: string;
-  relative: boolean;
-  absolute: boolean;
+  position: string;
   top: string;
   left: string;
+  overflowX: string;
+  overflowY: string;
+}
+
+interface GridProps extends GridStyle {
+  children: JSX.Element | JSX.Element[] | boolean | Element;
 }
 
 const Grid = (props: GridProps) => {
-  const { flex, column, align, justify, width, padding, margin, relative, absolute, top, left, children } = props;
+  const { flex, column, align, justify, width, padding, margin, position, top, left, overflowX, overflowY, children } = props;
 
   const styles = {
     flex,
@@ -40,10 +30,11 @@ const Grid = (props: GridProps) => {
     width,
     padding,
     margin,
-    relative,
-    absolute,
+    position,
     top,
     left,
+    overflowX,
+    overflowY,
   };
 
   return <ElGrid {...styles}>{children}</ElGrid>;
@@ -57,10 +48,11 @@ Grid.defaultProps = {
   width: '100%',
   padding: '0',
   margin: '0',
-  relative: false,
-  absolute: false,
+  position: '',
   top: '0',
   left: '0',
+  overflowX: '',
+  overflowY: '',
   children: null,
 };
 
@@ -72,10 +64,11 @@ const ElGrid = styled('div')<GridStyle>`
   ${(props) => props.justify && `justify-content: ${props.justify};`};
   ${(props) => props.padding && `padding: ${props.padding};`}
   ${(props) => props.margin && `margin: ${props.margin};`}
-  ${(props) => props.relative && 'position: relative;'};
-  ${(props) => props.absolute && 'position: absolute;'};
+  ${(props) => props.position && `position: ${props.position};`};
   ${(props) => props.top && `top: ${props.top};`}
   ${(props) => props.left && `left: ${props.left};`}
+  ${(props) => props.overflowX && `overflowX: ${props.overflowX};`}
+  ${(props) => props.overflowY && `overflowY: ${props.overflowY};`}
 `;
 
 export default Grid;

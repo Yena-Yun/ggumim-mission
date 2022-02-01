@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-interface IgetData {
-  url: string;
-}
+// interface IgetData {
+//   url: string;
+// }
 
 interface ProductList {
   productId: number;
@@ -23,7 +23,7 @@ interface IResponse {
   productList: ProductList[];
 }
 
-const getData = (url: IgetData) => {
+const getData = (url: string) => {
   const [response, setResponse] = useState<IResponse>();
   const [error, setError] = useState<string | null>(null);
 
