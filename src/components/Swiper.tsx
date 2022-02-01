@@ -1,18 +1,36 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const Swiper = () => {
+interface ProductList {
+  discountRate: number;
+  imageUrl: string;
+  outside: boolean;
+  pointX: number;
+  pointY: number;
+  priceDiscount: number;
+  priceOriginal: number;
+  productId: any;
+  productName: string;
+}
+
+interface IData {
+  id: number;
+  imageUrl: string;
+  productList: ProductList[];
+}
+
+interface DataProps {
+  data: IData;
+}
+
+const Swiper = ({ data }: DataProps) => {
   return (
-    <Wrapper>
-      <SwiperList>
+    <>
+      {data.productList.map((el: ProductList, idx: number) => (
         <SwipeWrap>
-          <SwipeImage src='' alt='' />
+          <SwipeImage src={data?.productList[idx].imageUrl} alt='' />
         </SwipeWrap>
-        <SwipeWrap>
-          <SwipeImage src='' alt='' />
-        </SwipeWrap>
-      </SwiperList>
-    </Wrapper>
+      ))}
+    </>
   );
 };
 

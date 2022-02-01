@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import ProductPost from 'pages/ProductPost';
+import MainPostPage from 'pages/MainPostPage';
 import axios from 'axios';
 
 interface ProductList {
@@ -42,7 +42,7 @@ const App = (): JSX.Element => {
 
   return (
     <>
-      <ProductPost image={data?.imageUrl} data={data} />
+      <MainPostPage image={data?.imageUrl} data={data} />
     </>
   );
 };
