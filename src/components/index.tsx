@@ -1,4 +1,5 @@
+import Products from './Products';
 import Swiper from './Swiper';
 import Toolkit from './Toolkit';
 
-export { Swiper, Toolkit };
+export { Products, Swiper, Toolkit };

@@ -1,27 +1,27 @@
 import styled from 'styled-components';
 
 type TextProps = {
-  bold: boolean;
-  color: string;
   size: string;
+  color: string;
+  weight: number;
   lineHeight: string;
-  children: string | null | undefined | JSX.Element;
+  children: any;
 };
 
 interface TextStyles {
-  bold: boolean;
-  color: string;
   size: string;
+  color: string;
+  weight: number;
   lineHeight: string;
 }
 
 export default function Text(props: TextProps) {
-  const { bold, color, size, lineHeight, children } = props;
+  const { size, color, weight, lineHeight, children } = props;
 
   const styles = {
-    bold,
     color,
     size,
+    weight,
     lineHeight,
   };
 
@@ -29,9 +29,9 @@ export default function Text(props: TextProps) {
 }
 
 Text.defaultProps = {
-  bold: false,
-  color: '#333c45',
   size: '14px',
+  color: '#333c45',
+  weight: 400,
   lineHeight: '1.3em',
   children: null,
 };
@@ -39,6 +39,7 @@ Text.defaultProps = {
 const P = styled('p')<TextStyles>`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
-  font-weight: ${(props) => (props.bold ? 700 : 400)};
+  font-weight: ${(props) => props.weight};
   line-height: ${(props) => props.lineHeight};
+  letter-spacing: -0.04em;
 `;

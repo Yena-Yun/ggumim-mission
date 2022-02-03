@@ -10,37 +10,20 @@ interface GridStyle {
   padding: string;
   margin: string;
   position: string;
-  top: string;
-  left: string;
   radius: string;
   shadow: string;
-  overflowX: string;
-  overflowY: string;
+  overflow?: string;
+  cursor?: string;
 }
 
 interface GridProps extends GridStyle {
   children: JSX.Element | JSX.Element[] | boolean | Element;
+  _onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
 }
 
 const Grid = (props: GridProps) => {
-  const {
-    flex,
-    column,
-    align,
-    justify,
-    width,
-    height,
-    padding,
-    margin,
-    position,
-    top,
-    left,
-    radius,
-    shadow,
-    overflowX,
-    overflowY,
-    children,
-  } = props;
+  const { flex, column, align, justify, width, height, padding, margin, position, radius, shadow, overflow, cursor, children, _onClick } =
+    props;
 
   const styles = {
     flex,
@@ -52,15 +35,17 @@ const Grid = (props: GridProps) => {
     padding,
     margin,
     position,
-    top,
-    left,
     radius,
     shadow,
-    overflowX,
-    overflowY,
+    overflow,
+    cursor,
   };
 
-  return <ElGrid {...styles}>{children}</ElGrid>;
+  return (
+    <ElGrid {...styles} onClick={_onClick}>
+      {children}
+    </ElGrid>
+  );
 };
 
 Grid.defaultProps = {
@@ -73,13 +58,12 @@ Grid.defaultProps = {
   padding: '0',
   margin: '0',
   position: '',
-  top: '0',
-  left: '0',
   radius: '',
   shadow: '',
-  overflowX: '',
-  overflowY: '',
+  overflow: '',
+  cursor: '',
   children: null,
+  _onClick: () => {},
 };
 
 const ElGrid = styled('div')<GridStyle>`
@@ -93,12 +77,10 @@ const ElGrid = styled('div')<GridStyle>`
   ${(props) => props.padding && `padding: ${props.padding};`}
   ${(props) => props.margin && `margin: ${props.margin};`}
   ${(props) => props.position && `position: ${props.position};`};
-  ${(props) => props.top && `top: ${props.top};`}
-  ${(props) => props.left && `left: ${props.left};`}
   ${(props) => props.radius && `border-radius: ${props.radius};`}
   ${(props) => props.shadow && `box-shadow: ${props.shadow};`}
-  ${(props) => props.overflowX && `overflowX: ${props.overflowX};`}
-  ${(props) => props.overflowY && `overflowY: ${props.overflowY};`}
+  ${(props) => props.overflow && `overflow: ${props.overflow};`}
+  ${(props) => props.cursor && `cursor: ${props.cursor};`}
 `;
 
 export default Grid;
