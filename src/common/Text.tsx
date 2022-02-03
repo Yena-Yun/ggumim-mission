@@ -5,7 +5,7 @@ type TextProps = {
   color: string;
   size: string;
   lineHeight: string;
-  children: string | null;
+  children: string | null | undefined | JSX.Element;
 };
 
 interface TextStyles {

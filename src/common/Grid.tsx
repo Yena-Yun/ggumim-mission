@@ -6,11 +6,14 @@ interface GridStyle {
   align: string;
   justify: string;
   width: string;
+  height: string;
   padding: string;
   margin: string;
   position: string;
   top: string;
   left: string;
+  radius: string;
+  shadow: string;
   overflowX: string;
   overflowY: string;
 }
@@ -20,7 +23,24 @@ interface GridProps extends GridStyle {
 }
 
 const Grid = (props: GridProps) => {
-  const { flex, column, align, justify, width, padding, margin, position, top, left, overflowX, overflowY, children } = props;
+  const {
+    flex,
+    column,
+    align,
+    justify,
+    width,
+    height,
+    padding,
+    margin,
+    position,
+    top,
+    left,
+    radius,
+    shadow,
+    overflowX,
+    overflowY,
+    children,
+  } = props;
 
   const styles = {
     flex,
@@ -28,11 +48,14 @@ const Grid = (props: GridProps) => {
     align,
     justify,
     width,
+    height,
     padding,
     margin,
     position,
     top,
     left,
+    radius,
+    shadow,
     overflowX,
     overflowY,
   };
@@ -43,14 +66,17 @@ const Grid = (props: GridProps) => {
 Grid.defaultProps = {
   flex: false,
   column: false,
-  align: 'center',
-  justify: 'center',
+  align: '',
+  justify: '',
   width: '100%',
+  height: 'auto',
   padding: '0',
   margin: '0',
   position: '',
   top: '0',
   left: '0',
+  radius: '0',
+  shadow: '',
   overflowX: '',
   overflowY: '',
   children: null,
@@ -58,6 +84,8 @@ Grid.defaultProps = {
 
 const ElGrid = styled('div')<GridStyle>`
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  ${(props) => props.flex && 'display: flex;'};
   ${(props) => props.flex && 'display: flex;'};
   ${(props) => props.column && 'flex-direction: column;'};
   ${(props) => props.align && `align-items: ${props.align};`}
@@ -67,6 +95,8 @@ const ElGrid = styled('div')<GridStyle>`
   ${(props) => props.position && `position: ${props.position};`};
   ${(props) => props.top && `top: ${props.top};`}
   ${(props) => props.left && `left: ${props.left};`}
+  ${(props) => props.radius && `border-radius: ${props.radius};`}
+  ${(props) => props.shadow && `box-shadow: ${props.shadow};`}
   ${(props) => props.overflowX && `overflowX: ${props.overflowX};`}
   ${(props) => props.overflowY && `overflowY: ${props.overflowY};`}
 `;
