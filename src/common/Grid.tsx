@@ -75,7 +75,7 @@ Grid.defaultProps = {
   position: '',
   top: '0',
   left: '0',
-  radius: '0',
+  radius: '',
   shadow: '',
   overflowX: '',
   overflowY: '',

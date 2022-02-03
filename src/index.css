@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
 body {
@@ -10,6 +11,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
   height: 100vh;
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 300;
+  src: url('./styles/fonts/SpoqaHanSansNeo-Light.otf') format('woff2'), url('./styles/fonts/SpoqaHanSansNeo-Light.otf') format('woff'),
+    url('./styles/fonts/SpoqaHanSansNeo-Light.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 400;
+  src: url('./styles/fonts/SpoqaHanSansNeo-Regular.otf') format('woff2'), url('./styles/fonts/SpoqaHanSansNeo-Regular.otf') format('woff'),
+    url('./styles/fonts/SpoqaHanSansNeo-Regular.otf') format('truetype');
+}
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 500;
+  src: url('styles/fonts/SpoqaHanSansNeo-Medium.otf') format('woff2');
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  font-weight: 700;
+  src: url('./styles/fonts/SpoqaHanSansNeo-Bold.otf') format('woff2'), url('./styles/fonts/SpoqaHanSansNeo-Bold.otf') format('woff'),
+    url('./styles/fonts/SpoqaHanSansNeo-Bold.otf') format('truetype');
 }
 
 code {

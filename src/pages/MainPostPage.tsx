@@ -46,14 +46,12 @@ const MainPostPage = ({ image, data }: PostProps) => {
               <Img src={expandIcon} alt={el.productName} />
 
               <ToolkitWrap>
-                <Grid width='70px' height='70px'>
+                <Grid width='105px' margin='0 8px 0 0'>
                   <Thumbnail src={el.imageUrl} alt='toolkit-thumbnail' />
                 </Grid>
                 <Grid width='100%' flex column>
                   <ToolkitTail tip={tail}></ToolkitTail>
-                  <Text size='14px' color='#4a4a4a'>
-                    {el.productName}
-                  </Text>
+                  <ToolkitTitle>{el.productName}</ToolkitTitle>
                   <Grid flex position='relative'>
                     {el.outside ? (
                       <ToolkitDesc>예상가 {el.priceDiscount}</ToolkitDesc>
@@ -121,8 +119,8 @@ const Img = styled.img`
 const ToolkitWrap = styled.div`
   display: flex;
   width: 212px;
-  height: 70px;
-  padding: 8px;
+  height: 82px;
+  padding: 8px 0 8px 8px;
   margin: 16px 0 0;
   border-radius: 7px;
   background: #fff;
@@ -141,8 +139,14 @@ const ToolkitTail = styled.div<{ tip: string }>`
   background: url(${(props) => props?.tip}) no-repeat center / contain;
 `;
 
+const ToolkitTitle = styled.p`
+  font-size: 13px;
+  color: #333c45;
+`;
+
 const Thumbnail = styled.img`
   width: 100%;
+  border-radius: 4px;
 `;
 
 const ToolkitDesc = styled.p``;
