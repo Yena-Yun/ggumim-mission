@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Grid, Text } from 'common';
 import expandIcon from 'assets/expand-icon.png';
@@ -28,13 +29,17 @@ interface PostProps {
 }
 
 const MainPostPage = ({ image, data }: PostProps) => {
-  const positionXY = (id: string) => {
-    const elem = document.getElementById(`${id}`);
-    console.log(elem);
-  };
+  const [clicked, setClicked] = useState(false);
 
   const numberWithCommas = (num: number) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
+  const handleBtnClick = () => {
+    setClicked(!clicked);
+
+    // if (index === e.target.id) {
+    // }
   };
 
   return (
@@ -44,10 +49,13 @@ const MainPostPage = ({ image, data }: PostProps) => {
           const { productId, pointX, pointY, productName, imageUrl, outside, priceOriginal, priceDiscount, discountRate } = info;
 
           return (
-            <>
-              <MainImgWrap key={idx} pointX={pointX} pointY={pointY} id={productId} onClick={() => positionXY(productId)}>
-                <Img src={expandIcon} alt={productName} />
+            <ProductWrap key={idx} pointX={pointX} pointY={pointY}>
+              {/* 돋보기 / x 버튼 */}
+              <ButtonWrap onClick={handleBtnClick}>
+                <ButtonImg src={expandIcon} alt={productName} />
+              </ButtonWrap>
 
+              <ShowToolkit show={clicked}>
                 <ToolkitWrap>
                   <ToolkitTail tip={tail}></ToolkitTail>
 
@@ -72,8 +80,8 @@ const MainPostPage = ({ image, data }: PostProps) => {
                     <RightArrow arrow={arrow}></RightArrow>
                   </Grid>
                 </ToolkitWrap>
-              </MainImgWrap>
-            </>
+              </ShowToolkit>
+            </ProductWrap>
           );
         })}
       </Background>
@@ -115,15 +123,25 @@ const Background = styled.div<{ image: string | undefined }>`
   height: 900px;
 `;
 
-const MainImgWrap = styled.div<{ pointX: number; pointY: number }>`
+const ProductWrap = styled.div<{ pointX: number; pointY: number }>`
   position: absolute;
   top: ${(props) => `${props.pointX * 1.43}`}px;
   left: ${(props) => `${props.pointY * 1.5}`}px;
 `;
 
-const Img = styled.img`
+const ButtonWrap = styled.div`
   width: 32px;
   height: 32px;
+  cursor: pointer;
+`;
+
+const ButtonImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+const ShowToolkit = styled.div<{ show: boolean }>`
+  display: ${(props) => (props.show ? 'block' : 'none')};
 `;
 
 const ToolkitWrap = styled.div`
@@ -138,6 +156,7 @@ const ToolkitWrap = styled.div`
   position: absolute;
   top: 28px;
   left: -20px;
+  z-index: 100;
 `;
 
 const ToolkitTail = styled.div<{ tip: string }>`

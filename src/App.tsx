@@ -27,8 +27,6 @@ const App = (): JSX.Element => {
     axios
       .get('https://cdn.ggumim.co.kr/test/image_product_link.json')
       .then((res) => {
-        console.log(res.data);
-
         if (!data) {
           setData(res.data);
         }
