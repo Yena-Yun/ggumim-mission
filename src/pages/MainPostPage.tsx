@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Grid, Text } from 'common';
+import { Grid } from 'common';
 import expandIcon from 'assets/expand-icon.png';
+import closeIcon from 'assets/close-icon.png';
 import arrow from '../assets/arrow.png';
 import tail from '../assets/toolkit-tail.png';
 
@@ -26,32 +27,37 @@ interface IData {
 interface PostProps {
   image?: string;
   data: IData | null;
-  // setData: React.Dispatch<React.SetStateAction<IData | null>>;
 }
 
 const MainPostPage = ({ image, data }: PostProps) => {
   const [showToolkit, setShowTookit] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<ProductList | undefined>();
-  const [clickedIndex, setClickedIndex] = useState(0);
+  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
 
   const numberWithCommas = (num: number) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
-  const toggleToolkit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, clicked: number) => {
+  const removeToolkit = () => {
+    if (showToolkit) {
+      setShowTookit(!showToolkit);
+    }
+  };
+
+  useEffect(() => {
+    setShowTookit(!showToolkit);
+  }, [clickedIndex]);
+
+  const toggleToolkit = (clicked: number) => {
     const clickedProduct = data?.productList.filter((item, idx) => idx === clicked);
 
-    console.log(clickedProduct);
-
     if (clickedProduct !== undefined) {
-      setSelectedProduct({ ...clickedProduct[0] });
-      setShowTookit(!showToolkit);
+      setShowTookit(true);
       setClickedIndex(clicked);
     }
   };
 
   return (
-    <Wrapper>
+    <Wrapper onClick={removeToolkit}>
       <Background image={image}>
         {data?.productList.map((info: ProductList, idx: number) => {
           const { productId, pointX, pointY, productName, imageUrl, outside, priceOriginal, priceDiscount, discountRate } = info;
@@ -59,16 +65,20 @@ const MainPostPage = ({ image, data }: PostProps) => {
           return (
             <ProductsWrap key={idx} pointX={pointX} pointY={pointY}>
               {/* 돋보기 / x 버튼 */}
-              <ButtonWrap onClick={(e) => toggleToolkit(e, idx)}>
-                <ButtonImg src={expandIcon} alt={productName} />
+              <ButtonWrap onClick={() => toggleToolkit(idx)}>
+                {idx === clickedIndex && showToolkit ? (
+                  <ButtonImg src={closeIcon} alt={productName} />
+                ) : (
+                  <ButtonImg src={expandIcon} alt={productName} />
+                )}
               </ButtonWrap>
 
-              {idx === clickedIndex && (
+              {idx === clickedIndex && showToolkit && (
                 <ToolkitWrap>
                   <ToolkitTail tip={tail}></ToolkitTail>
 
                   <ThumbnailWrap>
-                    <Thumbnail src={selectedProduct?.imageUrl} alt='toolkit-thumbnail' />
+                    <Thumbnail src={imageUrl} alt='toolkit-thumbnail' />
                   </ThumbnailWrap>
 
                   <Grid flex column width='105px' justify='space-between'>
@@ -100,7 +110,7 @@ const MainPostPage = ({ image, data }: PostProps) => {
             const { imageUrl, discountRate } = info;
 
             return (
-              <SwipeWrap key={idx}>
+              <SwipeWrap key={idx} onClick={() => toggleToolkit(idx)}>
                 <SwipeImage src={imageUrl} alt='swiper-thumbnail' />
                 {discountRate !== 0 && (
                   <DiscountBadge>
@@ -239,6 +249,7 @@ const SwipeWrap = styled.div`
   height: 106px;
   display: flex;
   position: relative;
+  cursor: pointer;
 `;
 
 const SwipeImage = styled.img`
