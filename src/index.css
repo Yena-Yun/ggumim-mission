@@ -3,16 +3,6 @@
   font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  width: 100%;
-  height: 100vh;
-}
-
 @font-face {
   font-family: 'Spoqa Han Sans Neo';
   font-weight: 300;
@@ -37,6 +27,20 @@ body {
   font-weight: 700;
   src: url('./styles/fonts/SpoqaHanSansNeo-Bold.otf') format('woff2'), url('./styles/fonts/SpoqaHanSansNeo-Bold.otf') format('woff'),
     url('./styles/fonts/SpoqaHanSansNeo-Bold.otf') format('truetype');
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100vh;
+}
+
+p {
+  margin: 0;
 }
 
 code {
