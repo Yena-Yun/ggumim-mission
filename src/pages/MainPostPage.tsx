@@ -7,7 +7,7 @@ import tail from '../assets/toolkit-tail.png';
 
 interface ProductList {
   discountRate: number;
-  imageUrl: string;
+  imageUrl: string | undefined;
   outside: boolean;
   pointX: number;
   pointY: number;
@@ -24,22 +24,30 @@ interface IData {
 }
 
 interface PostProps {
-  image: string | undefined;
+  image?: string;
   data: IData | null;
+  // setData: React.Dispatch<React.SetStateAction<IData | null>>;
 }
 
 const MainPostPage = ({ image, data }: PostProps) => {
-  const [clicked, setClicked] = useState(false);
+  const [showToolkit, setShowTookit] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<ProductList | undefined>();
+  const [clickedIndex, setClickedIndex] = useState(0);
 
   const numberWithCommas = (num: number) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
-  const handleBtnClick = () => {
-    setClicked(!clicked);
+  const toggleToolkit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, clicked: number) => {
+    const clickedProduct = data?.productList.filter((item, idx) => idx === clicked);
 
-    // if (index === e.target.id) {
-    // }
+    console.log(clickedProduct);
+
+    if (clickedProduct !== undefined) {
+      setSelectedProduct({ ...clickedProduct[0] });
+      setShowTookit(!showToolkit);
+      setClickedIndex(clicked);
+    }
   };
 
   return (
@@ -49,19 +57,19 @@ const MainPostPage = ({ image, data }: PostProps) => {
           const { productId, pointX, pointY, productName, imageUrl, outside, priceOriginal, priceDiscount, discountRate } = info;
 
           return (
-            <ProductWrap key={idx} pointX={pointX} pointY={pointY}>
+            <ProductsWrap key={idx} pointX={pointX} pointY={pointY}>
               {/* 돋보기 / x 버튼 */}
-              <ButtonWrap onClick={handleBtnClick}>
+              <ButtonWrap onClick={(e) => toggleToolkit(e, idx)}>
                 <ButtonImg src={expandIcon} alt={productName} />
               </ButtonWrap>
 
-              <ShowToolkit show={clicked}>
+              {idx === clickedIndex && (
                 <ToolkitWrap>
                   <ToolkitTail tip={tail}></ToolkitTail>
 
-                  <Grid width='70px' height='70px' margin='0 8px 0 0'>
-                    <Thumbnail src={imageUrl} alt='toolkit-thumbnail' />
-                  </Grid>
+                  <ThumbnailWrap>
+                    <Thumbnail src={selectedProduct?.imageUrl} alt='toolkit-thumbnail' />
+                  </ThumbnailWrap>
 
                   <Grid flex column width='105px' justify='space-between'>
                     <ToolkitTitle>{productName}</ToolkitTitle>
@@ -80,8 +88,8 @@ const MainPostPage = ({ image, data }: PostProps) => {
                     <RightArrow arrow={arrow}></RightArrow>
                   </Grid>
                 </ToolkitWrap>
-              </ShowToolkit>
-            </ProductWrap>
+              )}
+            </ProductsWrap>
           );
         })}
       </Background>
@@ -123,7 +131,7 @@ const Background = styled.div<{ image: string | undefined }>`
   height: 900px;
 `;
 
-const ProductWrap = styled.div<{ pointX: number; pointY: number }>`
+const ProductsWrap = styled.div<{ pointX: number; pointY: number }>`
   position: absolute;
   top: ${(props) => `${props.pointX * 1.43}`}px;
   left: ${(props) => `${props.pointY * 1.5}`}px;
@@ -141,7 +149,7 @@ const ButtonImg = styled.img`
 `;
 
 const ShowToolkit = styled.div<{ show: boolean }>`
-  display: ${(props) => (props.show ? 'block' : 'none')};
+  /* display: ${(props) => (props.show ? 'block' : 'none')}; */
 `;
 
 const ToolkitWrap = styled.div`
@@ -166,6 +174,12 @@ const ToolkitTail = styled.div<{ tip: string }>`
   top: -8px;
   left: 30px;
   background: url(${(props) => props?.tip}) no-repeat center / contain;
+`;
+
+const ThumbnailWrap = styled.div`
+  width: 70px;
+  height: 70px;
+  margin: 0 8px 0 0;
 `;
 
 const Thumbnail = styled.img`
