@@ -64,7 +64,6 @@ const MainPostPage = ({ image, data }: PostProps) => {
 
           return (
             <ProductsWrap key={idx} pointX={pointX} pointY={pointY}>
-              {/* 돋보기 / x 버튼 */}
               <ButtonWrap onClick={() => toggleToolkit(idx)}>
                 {idx === clickedIndex && showToolkit ? (
                   <ButtonImg src={closeIcon} alt={productName} />
@@ -111,7 +110,7 @@ const MainPostPage = ({ image, data }: PostProps) => {
 
             return (
               <SwipeWrap key={idx} onClick={() => toggleToolkit(idx)}>
-                <SwipeImage src={imageUrl} alt='swiper-thumbnail' />
+                <SwipeImage src={imageUrl} alt='swiper-thumbnail' selected={idx === clickedIndex} />
                 {discountRate !== 0 && (
                   <DiscountBadge>
                     {discountRate}
@@ -252,9 +251,15 @@ const SwipeWrap = styled.div`
   cursor: pointer;
 `;
 
-const SwipeImage = styled.img`
+const SwipeImage = styled.img<{ selected: boolean }>`
   width: 100%;
-  border: 0.5px solid #aaafb9;
+  ${(props) =>
+    props.selected
+      ? css`
+          background: linear-gradient(163.54deg, #ff659e 8.22%, #f56b30 94.1%);
+          padding: 2px;
+        `
+      : 'border: 0.5px solid #aaafb9'};
   border-radius: 16px;
 `;
 
