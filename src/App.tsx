@@ -8,7 +8,7 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     getData(data, setData);
-  }, []);
+  }, [data]);
 
   return <MainPostPage image={data?.imageUrl} data={data} />;
 };

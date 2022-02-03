@@ -10,7 +10,7 @@ const MainPostPage = ({ image, data }: IPostProps) => {
 
   const removeToolkit = () => {
     if (showToolkit) {
-      setShowTookit(!showToolkit);
+      setShowTookit(false);
     }
   };
 
@@ -18,13 +18,13 @@ const MainPostPage = ({ image, data }: IPostProps) => {
     const clickedProduct = data?.productList.filter((item, idx) => idx === clicked);
 
     if (clickedProduct !== undefined) {
-      setShowTookit(true);
+      setShowTookit(!showToolkit);
       setClickedIndex(clicked);
     }
   };
 
   useEffect(() => {
-    setShowTookit(!showToolkit);
+    setShowTookit((showToolkit) => !showToolkit);
   }, [clickedIndex]);
 
   return (
