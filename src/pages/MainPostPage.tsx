@@ -28,10 +28,12 @@ const MainPostPage = ({ image, data }: IPostProps) => {
   }, [clickedIndex]);
 
   return (
-    <Grid flex column align='center' margin='30px 0 0' _onClick={removeToolkit}>
+    <Grid flex column align='center' margin='20px 0 0' _onClick={removeToolkit}>
       <Background image={image}>
         {data?.productList.map((info: IProductList, idx: number) => {
-          return <Products info={info} toggleToolkit={toggleToolkit} idx={idx} showToolkit={showToolkit} clickedIndex={clickedIndex} />;
+          return (
+            <Products key={idx} info={info} toggleToolkit={toggleToolkit} idx={idx} showToolkit={showToolkit} clickedIndex={clickedIndex} />
+          );
         })}
       </Background>
 

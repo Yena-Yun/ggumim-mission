@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Toolkit } from 'components';
 import { Grid } from 'common';
+import { Toolkit } from 'components';
 import { IProductList } from 'types/IData';
 import { expandIcon, closeIcon } from 'assets';
 
@@ -16,7 +16,7 @@ const Products = ({ info, toggleToolkit, idx, showToolkit, clickedIndex }: TProd
   const { pointX, pointY, productName } = info;
 
   return (
-    <ProductsWrap key={idx} pointX={pointX} pointY={pointY}>
+    <ProductsWrap pointX={pointX} pointY={pointY}>
       <Grid width='40px' height='40px' flex justify='center' align='center' _onClick={() => toggleToolkit(idx)}>
         <Grid width='32px' height='32px' cursor='pointer'>
           {idx === clickedIndex && showToolkit ? (

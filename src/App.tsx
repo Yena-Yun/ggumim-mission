@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import MainPostPage from 'pages/MainPostPage';
+import { MainPostPage } from 'pages';
+import { getData } from 'utils';
 import { IData } from 'types/IData';
-import { getData } from 'utils/getData';
 
 const App = (): JSX.Element => {
   const [data, setData] = useState<IData | null>(null);

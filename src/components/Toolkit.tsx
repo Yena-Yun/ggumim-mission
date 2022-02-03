@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import { Grid, Text } from 'common';
-import { arrow, tail } from 'assets';
+import { numberWithCommas } from 'utils';
 import { IProductList } from 'types/IData';
-import { numberWithCommas } from 'utils/numberWithCommas';
+import { arrow, tail } from 'assets';
 
 type TToolkit = {
   info: IProductList;
