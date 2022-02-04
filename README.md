@@ -1,15 +1,16 @@
-# ✨ 배포링크
+## ✨ 배포링크
 <h2>https://yenayun-ggumim.netlify.app/</h2>
 
-# 🧨 실행방법
+## 🎉 사용스택
+![React](https://img.shields.io/badge/-React-61DAFB?&logo=react&logoColor=white)
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
+
+## 🧨 실행방법
 ``` yarn start ```
 
 ---
 
-# 🎠 구현화면
-<img src="https://user-images.githubusercontent.com/68722179/152388643-cbe0db8c-02cb-4c6e-8bf4-1a6ffafbc385.png" width="350" />
-
-# 🚀 구현기능
+## 🚀 구현기능
 - **사이트의 실제 폰트 사용 (Spoqa Han Sans)**
 - API를 통해서 사진과 가구에 대한 정보 호출
 - 각각의 가구에 해당하는 좌표에 돋보기 모양 버튼 표시
@@ -19,5 +20,5 @@
 - 하단에 있는 상품목록(Swiper)에서 해당 가구가 선택되면 상단에서 tool tip 출력
 - 하단 상품목록의 선택된 가구 이미지에 선택되었음을 표시 (border 색 변경)
 
-# ⛵ 디렉토리 구조
+## ⛵ 디렉토리 구조
 <img src="https://user-images.githubusercontent.com/68722179/152388868-714877cf-d092-469d-afd4-f6088fe9f05f.png" width="25%" />
